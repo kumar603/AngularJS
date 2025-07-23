@@ -1,0 +1,65 @@
+<!--
+      *****************************************************************************************************
+            Project Name :  AngularJS routing Example  
+            File Name    : angularjs_routing_ngroute.html  
+            Version      : 1.0.0
+            Writer       : Kiran Kumar J
+            Description  :  To enable navigation between multiple views (pages) in a Single Page Application (SPA) using ngRoute.
+            Created By   : Kiran Kumar
+            Changed Date : 23 - July - 2025
+            Changed By   : Kiran Kumar
+            JIRA ID      : https://kiranjuvvanapudi.atlassian.net/browse/ATDAR-5
+      *****************************************************************************************************/
+
+    | Concept                           | Description                                                                          |
+    | --------------------------------- | ------------------------------------------------------------------------------------ |
+    | **SPA (Single Page Application)** | Loads only one HTML page and updates dynamically without refreshing the entire page. |
+    | **ngRoute Module**                | Enables client-side routing in AngularJS (add via `angular-route.js`).               |
+    | **\$routeProvider**               | Defines route-to-template-controller mappings.                                       |
+    | **`ng-view`**                     | Directive used to render the routed template view inside main HTML.                  |
+
+-->
+
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS Routing</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+  <style>
+    nav a { margin: 10px; }
+    nav a.active { font-weight: bold; color: darkblue; }
+  </style>
+</head>
+<body>
+
+  <h2>AngularJS Routing Demo</h2>
+
+  <nav>
+    <a href="#!/home">Home</a>
+    <a href="#!/about">About</a>
+  </nav>
+
+  <div ng-view></div>
+
+  <script>
+    var app = angular.module('myApp', ['ngRoute']);
+
+    app.config(function($routeProvider) {
+      $routeProvider
+        .when("/home", {
+          template: "<h3>Welcome to the Home Page!</h3>"
+        })
+        .when("/about", {
+          template: "<h3>About This App: Created by Kiran</h3>"
+        })
+        .otherwise({
+          redirectTo: "/home"
+        });
+    });
+  </script>
+
+</body>
+</html>
+<!-- End of angularjs_routing_ngroute.html -->
