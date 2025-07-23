@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS Directives, Filters, Controllers</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body>
+
+  <div ng-controller="MainController">
+    <!-- Using ng-model for two-way binding -->
+<h3>Enter Your Name:</h3>
+<input type="text" ng-model="user.name">
+<p>Welcome, <strong>{{ user.name | uppercase }}</strong></p>
+<!-- Using ng-repeat directive and filters -->
+<h3>Task List (ng-repeat with filter):</h3>
+<input type="text" ng-model="searchText" placeholder="Search tasks...">
+<ul>
+  <li ng-repeat="task in tasks | filter:searchText">
+    {{ task.title | uppercase }} - Due on {{ task.dueDate | date:'MMM dd, yyyy' }}
+  </li>
+</ul>
+<!-- Using currency filter -->
+<h3>Expenses</h3>
+<ul>
+  <li ng-repeat="expense in expenses">
+    {{ expense.item }} - {{ expense.cost | currency:'₹' }}
+  </li>
+</ul>
+  </div>
+
+  <script>
+    var app = angular.module('myApp', []);
+    app.controller('MainController', function($scope) {
+    $scope.user = { name: 'Kiran Kumar' };
+
+  $scope.tasks = [
+        { title: 'Pay Bills', dueDate: new Date(2025, 6, 25) },
+        { title: 'Buy Groceries', dueDate: new Date(2025, 6, 26) },
+        { title: 'Car Service', dueDate: new Date(2025, 6, 27) }
+    ];
+
+    $scope.expenses = [
+        { item: 'Rent', cost: 12000 },
+        { item: 'Electricity', cost: 1500 },
+        { item: 'Internet', cost: 999 }
+    ];
+    });
+  </script>
+
+</body>
+</html>
