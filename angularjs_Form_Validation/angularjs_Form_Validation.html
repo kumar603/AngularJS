@@ -1,0 +1,81 @@
+<!--
+      *****************************************************************************************************
+            Project Name :  AngularJS Form Validation Example 
+            File Name    : angularjs_Form_Validation.html
+            Version      : 1.0.0
+            Writer       : Kiran Kumar J
+            Description  :  Understand how to use AngularJS forms, bind data with ng-model, and apply validations.
+            Created By   : Kiran Kumar
+            Changed Date : 23 - July - 2025
+            Changed By   : Kiran Kumar
+            JIRA ID      : https://kiranjuvvanapudi.atlassian.net/browse/ATDAR-6
+      *****************************************************************************************************/
+
+    | **Item**             | **Details**                                                                                                                          |
+    | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+    | **Theory**           | AngularJS enhances HTML forms with two-way data binding, built-in validations, and state-based styling (`$valid`, `$invalid`, etc.). |
+    | **Key Directives**   | `ng-model`, `ng-submit`, `required`, `ng-minlength`, `ng-pattern`, `name`, `form`                                                    |
+    | **Common Use Cases** | User registration, login, profile forms with live validation feedback                                                                |
+
+
+-->
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS Form Handling</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    input.ng-invalid.ng-dirty {
+      border-color: red;
+    }
+    input.ng-valid.ng-dirty {
+      border-color: green;
+    }
+  </style>
+</head>
+<body ng-controller="FormController">
+
+  <h2>User Registration Form</h2>
+
+  <form name="userForm" ng-submit="submitForm()" novalidate>
+
+    <label>Name:</label>
+    <input type="text" name="name" ng-model="user.name" required />
+    <span ng-show="userForm.name.$touched && userForm.name.$invalid">Name is required.</span>
+    <br><br>
+
+    <label>Email:</label>
+    <input type="email" name="email" ng-model="user.email" required />
+    <span ng-show="userForm.email.$touched && userForm.email.$invalid">Valid email is required.</span>
+    <br><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" ng-model="user.password" ng-minlength="5" required />
+    <span ng-show="userForm.password.$touched && userForm.password.$invalid">
+      Password must be at least 5 characters.
+    </span>
+    <br><br>
+
+    <button type="submit" ng-disabled="userForm.$invalid">Submit</button>
+
+  </form>
+
+  <p><strong>Form Data Preview:</strong></p>
+  <pre>{{ user | json }}</pre>
+
+  <script>
+    angular.module("myApp", [])
+      .controller("FormController", function($scope) {
+        $scope.user = {};
+
+        $scope.submitForm = function () {
+          if ($scope.userForm.$valid) {
+            alert("Form submitted successfully!");
+          }
+        };
+      });
+  </script>
+
+</body>
+</html>
