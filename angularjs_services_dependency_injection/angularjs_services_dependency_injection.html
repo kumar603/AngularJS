@@ -1,0 +1,60 @@
+<!--
+      *****************************************************************************************************
+            Project Name :  AngularJS Services and dependency Injection DI Example  
+            File Name    :  angularjs-services-dependency-injection.html
+            Version      : 1.0.0
+            Writer       : Kiran Kumar J
+            Description  :  Explanation how AngularJS how to modularize and reuse logic using services, 
+                             and how AngularJS uses dependency injection (DI) to manage components
+            Created Date : 23 - July - 2025
+            Created By   : Kiran Kumar
+            Changed Date : 23 - July - 2025
+            Changed By   : Kiran Kumar
+            JIRA ID      : https://kiranjuvvanapudi.atlassian.net/browse/ATDAR-4
+      *****************************************************************************************************/
+
+    *
+    | Concept                  | Description                                                                                         |
+    | ------------------------ | --------------------------------------------------------------------------------------------------- |
+    | **Service**              | Reusable business logic container (e.g., HTTP calls, calculations).                                 |
+    | **Factory**              | Another way to create services – more configurable.                                                 |
+    | **Dependency Injection** | AngularJS provides required objects automatically (like `$http`, `$scope`) to controllers/services. |
+
+    *                      
+-->
+    <!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS Services & DI</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body>
+
+  <div ng-controller="CalcController">
+    <h2>Service Example: Square Calculator</h2>
+    <input type="number" ng-model="number" placeholder="Enter a number" />
+    <p>Square of {{ number }} is: <strong>{{ getSquare() }}</strong></p>
+  </div>
+
+  <script>
+    var app = angular.module('myApp', []);
+
+    // Custom Service
+    app.service('MathService', function() {
+      this.square = function(a) {
+        return a * a;
+      };
+    });
+
+    // Controller with DI
+    app.controller('CalcController', function($scope, MathService) {
+      $scope.number = 5;
+      $scope.getSquare = function() {
+        return MathService.square($scope.number);
+      };
+    });
+  </script>
+
+</body>
+</html>
