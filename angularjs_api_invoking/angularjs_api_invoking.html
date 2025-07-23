@@ -1,0 +1,63 @@
+<!--
+      *****************************************************************************************************
+            Project Name :  AngularJS api invoking example  
+            File Name    : angularjs_Form_Validation.html
+            Version      : 1.0.0
+            Writer       : Kiran Kumar J
+            Description  : Learn how to make HTTP requests (GET, POST, etc.) to RESTful APIs using AngularJS.
+            Created By   : Kiran Kumar
+            Changed Date : 23 - July - 2025
+            Changed By   : Kiran Kumar
+            JIRA ID      : https://kiranjuvvanapudi.atlassian.net/browse/ATDAR-7
+      *****************************************************************************************************/
+
+    | **Item**           | **Details**                                                                                                                           |
+    | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+    | **Theory**         | AngularJS provides the `$http` service to interact with external APIs. It supports promises, response handling, and error management. |
+    | **Common Methods** | `$http.get()`, `$http.post()`, `$http.put()`, `$http.delete()`                                                                        |
+    | **Real Use Cases** | Fetching user data, submitting forms, displaying external content like product lists or weather info.                                 |
+
+
+
+-->
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>API Call with $http</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="ApiController">
+
+  <h2>Sample Users from API</h2>
+  <button ng-click="loadUsers()">Load Users</button>
+
+  <ul>
+    <li ng-repeat="user in users">
+      {{ user.name }} ({{ user.email }})
+    </li>
+  </ul>
+
+  <p ng-show="errorMessage" style="color: red">{{ errorMessage }}</p>
+
+  <script>
+    angular.module('myApp', [])
+      .controller('ApiController', function($scope, $http) {
+        $scope.users = [];
+        $scope.errorMessage = '';
+
+        $scope.loadUsers = function () {
+          $http.get('https://jsonplaceholder.typicode.com/users')
+            .then(function(response) {
+              $scope.users = response.data;
+            })
+            .catch(function(error) {
+              $scope.errorMessage = 'Failed to load data';
+              console.error(error);
+            });
+        };
+      });
+  </script>
+
+</body>
+</html>
